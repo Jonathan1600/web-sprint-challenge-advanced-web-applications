@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import EditMenu from './EditMenu'
+import Color from './Color'
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 const initialColor = {
   color: "",
@@ -17,20 +20,44 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
+    axiosWithAuth()
+      .put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
+      .then((res) => {
+
+        updateColors(colors.map(color =>
+          color.id === colorToEdit.id ? res.data : color
+        ))
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
   };
 
   const deleteColor = color => {
+    axiosWithAuth()
+      .delete(`http://localhost:5000/api/colors/${color.id}`)
+      .then((res) => {
+        console.log(res.data);
+        updateColors(colors.filter(x => x.id !== color.id))
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+
+
   };
 
   return (
     <div className="colors-wrap">
       <p>colors</p>
       <ul>
-        {colors.map(color => <Color key={color.id} editing={editing} color={color} editColor={editColor} deleteColor={deleteColor}/>)}
+        {colors.map(color => <Color key={color.id} editing={editing} color={color} editColor={editColor} deleteColor={deleteColor} />)}
       </ul>
-      
-      { editing && <EditMenu colorToEdit={colorToEdit} saveEdit={saveEdit} setColorToEdit={setColorToEdit} setEditing={setEditing}/> }
+
+      { editing && <EditMenu colorToEdit={colorToEdit} saveEdit={saveEdit} setColorToEdit={setColorToEdit} setEditing={setEditing} />}
 
     </div>
   );

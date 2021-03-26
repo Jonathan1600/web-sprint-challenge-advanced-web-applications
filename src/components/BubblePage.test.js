@@ -1,13 +1,115 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import BubblePage from "./BubblePage";
+import axios from 'axios';
+import '@testing-library/jest-dom/extend-expect';
+import fetch from "./fetch"
+
+jest.mock("./fetch")
+
+const mockData = [
+  {
+    color: "aliceblue",
+    code: {
+      hex: "#f0f8ff",
+    },
+    id: 1,
+  },
+  {
+    color: "limegreen",
+    code: {
+      hex: "#99ddbc",
+    },
+    id: 2,
+  },
+  {
+    color: "aqua",
+    code: {
+      hex: "#00ffff",
+    },
+    id: 3,
+  },
+  {
+    color: "aquamarine",
+    code: {
+      hex: "#7fffd4",
+    },
+    id: 4,
+  },
+  {
+    color: "lilac",
+    code: {
+      hex: "#9a99dd",
+    },
+    id: 5,
+  },
+  {
+    color: "softpink",
+    code: {
+      hex: "#dd99ba",
+    },
+    id: 6,
+  },
+  {
+    color: "bisque",
+    code: {
+      hex: "#dd9a99",
+    },
+    id: 7,
+  },
+  {
+    color: "softyellow",
+    code: {
+      hex: "#dcdd99",
+    },
+    id: 8,
+  },
+  {
+    color: "blanchedalmond",
+    code: {
+      hex: "#ffebcd",
+    },
+    id: 9,
+  },
+  {
+    color: "blue",
+    code: {
+      hex: "#6093ca",
+    },
+    id: 10,
+  },
+  {
+    color: "blueviolet",
+    code: {
+      hex: "#8a2be2",
+    },
+    id: 11,
+  },
+];
+
+
+// beforeEach(() => {
+//   axios.get = jest.fn(() => Promise.resolve({ data: { data: mockData } }))
+// })
+
 
 test("Renders BubblePage without errors", () => {
   // Finish this test
+  render(<BubblePage />)
 });
 
-test("Fetches data and renders the bubbles on mounting", () => {
+test("Fetches data and renders the bubbles on mounting", async () => {
   // Finish this test
+  // fetch.mockResolvedValueOnce(mockData);
+  // const fakeResponse = { title: 'example text' };
+  // const mRes = { json: jest.fn().mockResolvedValueOnce(mockData) };
+  // const mockedFetch = jest.fn().mockResolvedValueOnce(mRes);
+  // (global).fetch = mockedFetch;
+  render(<BubblePage />)
+  await waitFor(() => expect(screen.getAllByTestId("color")).not.toBeEmptyDOMElement())
+  // expect(mockedFetch).toBeCalledTimes(1);
+  // expect(mRes.json).toBeCalledTimes(1);
+
 });
 
 //Task List
