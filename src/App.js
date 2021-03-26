@@ -11,7 +11,7 @@ function App() {
         <header>
           Color Picker Sprint Challenge
           <a data-testid="logoutButton" href="#">logout</a>
-        </header> 
+        </header>
 
         <Route exact path="/" component={Login} />
       </div>
@@ -24,3 +24,4 @@ export default App;
 //Task List:
 //1. Render BubblePage as a PrivateRoute
 //2. Build the logout button to remove the localStorage Item.
+//test.
